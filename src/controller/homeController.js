@@ -1,10 +1,9 @@
-import db from '../models/index'; // import database
 import CRUDService from '../services/CRUDService'; // import service
 
 // Hàm hiển thị trang chủ
 let getHomePage = async (req, res) => {
     try {
-        let data = await db.User.findAll(); // lấy dữ liệu từ models/index
+        let data = await CRUDService.getAllUser();
         return res.render('homepage.ejs', {
             data: JSON.stringify(data) // trả dữ liệu data về view
         });

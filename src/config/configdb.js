@@ -1,19 +1,19 @@
-import { Sequelize } from 'sequelize';
-
-// Truyền đúng tên DB, username và password của bạn
-const sequelize = new Sequelize('node_fulltask', 'duyphan42', '40938813dD#', {
-  host: 'localhost',
-  dialect: 'mysql',
-  logging: false
-});
+import mongoose from 'mongoose';
 
 let connectDB = async () => {
-  try {
-    await sequelize.authenticate();
-    console.log('Connection has been established successfully.');
-  } catch (error) {
-    console.error('Unable to connect to the database:', error);
-  }
+    if (!process.env.MONGODB_URI) {
+        console.error('>>> Missing MONGODB_URI in environment.');
+        return false;
+    }
+
+    try {
+        await mongoose.connect(process.env.MONGODB_URI);
+        console.log('>>> Connection to MongoDB has been established successfully.');
+        return true;
+    } catch (error) {
+        console.error('>>> Unable to connect to MongoDB:', error);
+        return false;
+    }
 }
 
-module.exports = connectDB;
+export default connectDB;

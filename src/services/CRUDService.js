@@ -43,9 +43,7 @@ let createNewUser = async (data) => {
 let getAllUser = () => {
     return new Promise(async (resolve, reject) => {
         try {
-            let users = db.User.findAll({
-                raw: true,
-            });
+            let users = await db.User.find({}).lean();
             resolve(users);
         } catch (e) {
             reject(e);
@@ -57,15 +55,8 @@ let getAllUser = () => {
 let getUserInfoById = (userId) => {
     return new Promise(async (resolve, reject) => {
         try {
-            let user = await db.User.findOne({
-                where: { id: userId },
-                raw: true
-            });
-            if (user) {
-                resolve(user);
-            } else {
-                resolve([]);
-            }
+            let user = await db.User.findById(userId).lean();
+            resolve(user || null);
         } catch (e) {
             reject(e);
         }
@@ -76,19 +67,17 @@ let getUserInfoById = (userId) => {
 let updateUser = (data) => {
     return new Promise(async (resolve, reject) => {
         try {
-            let user = await db.User.findOne({
-                where: { id: data.id }
-            });
+            let user = await db.User.findById(data.id);
             if (user) {
                 user.firstName = data.firstName;
                 user.lastName = data.lastName;
                 user.address = data.address;
                 await user.save();
-                
-                let allUsers = await db.User.findAll();
+
+                let allUsers = await db.User.find({}).lean();
                 resolve(allUsers);
             } else {
-                resolve();
+                resolve([]);
             }
         } catch (e) {
             reject(e);
@@ -100,12 +89,7 @@ let updateUser = (data) => {
 let deleteUserById = (userId) => {
     return new Promise(async (resolve, reject) => {
         try {
-            let user = await db.User.findOne({
-                where: { id: userId }
-            });
-            if (user) {
-                await user.destroy();
-            }
+            await db.User.findByIdAndDelete(userId);
             resolve();
         } catch (e) {
             reject(e);

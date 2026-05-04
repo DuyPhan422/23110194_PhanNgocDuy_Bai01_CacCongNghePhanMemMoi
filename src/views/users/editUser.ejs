@@ -15,11 +15,11 @@
 <body>
     <h1>Edit User</h1>
 
-    <% if (!data || !data.id) { %>
+    <% if (!data || !data._id) { %>
         <p>User not found.</p>
     <% } else { %>
         <form action="/put-crud" method="post">
-            <input type="hidden" name="id" value="<%= data.id %>">
+            <input type="hidden" name="id" value="<%= data._id %>">
 
             <div class="form-row">
                 <label for="email">Email</label>
