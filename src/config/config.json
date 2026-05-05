@@ -1,7 +1,7 @@
 {
   "development": {
-    "username": "duyphan42",
-    "password": "40938813dD#",
+    "username": "root",
+    "password": "matkhau_cua_ban",
     "database": "node_fulltask",
     "host": "127.0.0.1",
     "dialect": "mysql",

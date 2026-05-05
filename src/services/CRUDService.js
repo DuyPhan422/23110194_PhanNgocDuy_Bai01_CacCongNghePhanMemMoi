@@ -1,9 +1,8 @@
 import bcrypt from 'bcryptjs';
 import db from '../models/index';
 
-const salt = bcrypt.genSaltSync(10); // thuật toán hash password
+const salt = bcrypt.genSaltSync(10);
 
-// Hàm mã hóa mật khẩu
 let hashUserPassword = (password) => {
     return new Promise(async (resolve, reject) => {
         try {
@@ -15,7 +14,6 @@ let hashUserPassword = (password) => {
     })
 }
 
-// 1. CREATE: Hàm thêm mới User
 let createNewUser = async (data) => {
     return new Promise(async (resolve, reject) => {
         try {
@@ -39,7 +37,6 @@ let createNewUser = async (data) => {
     })
 }
 
-// 2. READ (All): Lấy tất cả thông tin User
 let getAllUser = () => {
     return new Promise(async (resolve, reject) => {
         try {
@@ -51,7 +48,6 @@ let getAllUser = () => {
     })
 }
 
-// 3. READ (One): Lấy thông tin 1 User theo ID
 let getUserInfoById = (userId) => {
     return new Promise(async (resolve, reject) => {
         try {
@@ -63,7 +59,6 @@ let getUserInfoById = (userId) => {
     })
 }
 
-// 4. UPDATE: Cập nhật thông tin User
 let updateUser = (data) => {
     return new Promise(async (resolve, reject) => {
         try {
@@ -85,7 +80,6 @@ let updateUser = (data) => {
     })
 }
 
-// 5. DELETE: Xóa User
 let deleteUserById = (userId) => {
     return new Promise(async (resolve, reject) => {
         try {
@@ -97,7 +91,6 @@ let deleteUserById = (userId) => {
     })
 }
 
-// Xuất tất cả các hàm ra bên ngoài
 module.exports = {
     createNewUser: createNewUser,
     getAllUser: getAllUser,
